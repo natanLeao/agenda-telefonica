@@ -1,13 +1,56 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Telefônica</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>Agenda Telefônica</h1>
+
+    <form id="contact-form">
+        <input type="hidden" id="contact-id">
+        <label>Nome:</label>
+        <input type="text" id="nome" required>
+        
+        <label>Telefone:</label>
+        <input type="text" id="telefone" required>
+
+        <label>CEP:</label>
+        <input type="text" id="cep" onblur="buscarCEP()">
+
+        <label>Endereço:</label>
+        <input type="text" id="endereco">
+
+        <label>Bairro:</label>
+        <input type="text" id="bairro">
+
+        <label>Cidade:</label>
+        <input type="text" id="cidade">
+
+        <label>Estado:</label>
+        <input type="text" id="estado">
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>CEP</th>
+                <th>Endereço</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="contact-list"></tbody>
+    </table>
+</body>
 </html>

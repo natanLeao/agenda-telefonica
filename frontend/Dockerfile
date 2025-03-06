@@ -1,20 +1,17 @@
-# Usa a imagem do Node.js como base
-FROM node:18-alpine
+# Usa a imagem oficial do Nginx
+FROM nginx:latest
 
-# Define o diretorio de trabalho
-WORKDIR /app
+# Remove a configuração padrão do Nginx
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia os arquivos do projeto
-COPY package.json package-lock.json ./
+# Copia a configuração personalizada para o Nginx
+COPY nginx.conf /etc/nginx/conf.d/
 
-# Instala as dependencias
-RUN npm install
+# Copia os arquivos do frontend para a pasta padrão do Nginx
+COPY . /usr/share/nginx/html
 
-# Copia o restante do projeto
-COPY . .
+# Expõe a porta padrão do Nginx
+EXPOSE 80
 
-# Expoe a porta correta
-EXPOSE 5173
-
-# Comando para rodar a aplicacao
-CMD ["npm", "run", "dev", "--", "--host"]
+# Comando padrão para rodar o Nginx
+CMD ["nginx", "-g", "daemon off;"]
