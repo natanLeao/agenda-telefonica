@@ -1,4 +1,4 @@
-const API_URL = `http://localhost:3000/contatos`;
+const API_URL = "http://backend_agenda:3000/contatos";
 
 // Carrega contatos ao iniciar a página
 document.addEventListener('DOMContentLoaded', loadContacts);
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', loadContacts);
 // Função para carregar e exibir contatos na tabela
 async function loadContacts() {
     try {
-        const response = await fetch(`http://localhost:3000/contatos`);
+        const response = await fetch(`${API_URL}`);
         if (!response.ok) {
             throw new Error('Erro ao buscar contatos');
         }
@@ -15,8 +15,9 @@ async function loadContacts() {
 
         const contactList = document.getElementById('contact-list');
         contactList.innerHTML = '';
-
-        contatos.forEach(contato => {
+        
+        for (let i = 0; i < contatos.length; i++) {
+            const contato = contatos[i];
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${contato.id}</td>
@@ -33,7 +34,7 @@ async function loadContacts() {
                 </td>
             `;
             contactList.appendChild(row);
-        });
+        }
 
     } catch (error) {
         console.error('Erro ao carregar contatos:', error);
@@ -43,7 +44,11 @@ async function loadContacts() {
 // Busca endereço pelo CEP
 async function buscarCEP() {
     const cep = document.getElementById('cep').value.replace(/\D/g, ''); // Remove caracteres não numéricos
-    if (cep.length !== 8) return;
+    
+    if (cep.length !== 8) {
+        alert("CEP inválido!");
+        return;
+    }
 
     try {
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -74,7 +79,7 @@ async function addContact() {
 
     if (nome && telefone) {
         try {
-            const response = await fetch(`http://localhost:3000/contatos`, {
+            const response = await fetch(`${API_URL}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nome, telefone, cep, endereco, bairro, cidade, estado })
@@ -121,9 +126,51 @@ async function deleteContact(id) {
     if (!confirm('Tem certeza que deseja excluir este contato?')) return;
 
     try {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        await fetch(`${API_URL}/${id}/`, { method: 'DELETE' });
         loadContacts(); // Atualiza a lista de contatos
     } catch (error) {
         alert('Erro ao deletar contato.');
     }
 }
+
+document.getElementById("contact-form").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Evita o recarregamento da página
+
+    const id = document.getElementById("contact-id").value;
+    const nome = document.getElementById("nome").value;
+    const telefone = document.getElementById("telefone").value;
+    const cep = document.getElementById("cep").value;
+    const endereco = document.getElementById("endereco").value;
+    const bairro = document.getElementById("bairro").value;
+    const cidade = document.getElementById("cidade").value;
+    const estado = document.getElementById("estado").value;
+
+    if (!nome || !telefone) {
+        alert("Preencha pelo menos o nome e o telefone!");
+        return;
+    }
+
+    const contato = { nome, telefone, cep, endereco, bairro, cidade, estado };
+    const method = id ? "PUT" : "POST"; // Se houver ID, atualiza; senão, cria novo contato
+    const url = id ? `${API_URL}/${id}` : API_URL;
+
+    try {
+        const response = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(contato),
+        });
+
+        if (response.ok) {
+            alert("Contato salvo com sucesso!");
+            document.getElementById("contact-form").reset();
+            document.getElementById("contact-id").value = "";
+            loadContacts();
+        } else {
+            alert("Erro ao salvar contato!");
+        }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+        alert("Erro ao conectar ao servidor!");
+    }
+});

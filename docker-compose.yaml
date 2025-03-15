@@ -12,6 +12,8 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - minha_rede
 
   backend:
     build: ./backend
@@ -19,19 +21,32 @@ services:
     restart: always
     depends_on:
       - db
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: agenda
     ports:
       - "3000:3000"
+    networks:
+      - minha_rede
 
   frontend:
-      build: ./frontend
-      container_name: frontend_agenda
-      restart: always
-      depends_on:
-        - backend
-      ports:
-        - "8080:80"
-      volumes:
+    build: ./frontend
+    container_name: frontend_agenda
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
       - ./frontend:/usr/share/nginx/html  
+    networks:
+      - minha_rede
 
 volumes:
   db_data: 
+
+networks:
+  minha_rede:
+    driver: bridge

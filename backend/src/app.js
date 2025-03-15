@@ -10,22 +10,22 @@ app.use(cors());
 app.use(express.json());
 
 // [GET] Buscar todos os contatos
-app.get('/contatos', async (req, res) => {
+app.get('/contatos/', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT * FROM contatos');
 
         if (rows.length === 0) {
-            return res.status(404).json({ error: 'Contato não encontrado' });
+            return res.status(404).json({ error: 'Contato não encontrado', error});
         }
 
         res.json(rows[0]);  
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao buscar contato' });
+        res.status(500).json({ error: 'Erro ao buscar contato', error});
     }
 });
 
 // [POST] Adicionar um contato
-app.post('/contatos', async (req, res) => {
+app.post('/contatos/', async (req, res) => {
     const { nome, telefone, cep, endereco, bairro, cidade, estado } = req.body;
     try {
         const [result] = await pool.query(
@@ -34,12 +34,12 @@ app.post('/contatos', async (req, res) => {
         );
         res.status(201).json({ id: result.insertId, nome, telefone, cep, endereco, bairro, cidade, estado });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao adicionar contato' });
+        res.status(500).json({ error: 'Erro ao adicionar contato', error});
     }
 });
 
 // [PUT] Atualizar um contato
-app.put('/contatos/id', async (req, res) => {
+app.put('/contatos/id/', async (req, res) => {
     const { id } = req.params;
     const { nome, telefone, cep, endereco, bairro, cidade, estado } = req.body;
     try {
@@ -49,18 +49,18 @@ app.put('/contatos/id', async (req, res) => {
         );
         res.json({ id, nome, telefone, cep, endereco, bairro, cidade, estado });
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao atualizar contato' });
+        res.status(500).json({ error: 'Erro ao atualizar contato', error});
     }
 });
 
 // [DELETE] Deletar um contato
-app.delete('/contatos/id', async (req, res) => {
+app.delete('/contatos/id/', async (req, res) => {
     const { id } = req.params;
     try {
         await pool.query('DELETE FROM contatos WHERE id = ?', [id]);
         res.status(204).send();
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao deletar contato' });
+        res.status(500).json({ error: 'Erro ao deletar contato', error});
     }
 });
 
