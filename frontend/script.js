@@ -43,7 +43,7 @@ async function loadContacts() {
 
 // Busca endereço pelo CEP
 async function buscarCEP() {
-    const cep = document.getElementById('cep').value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    const cep = document.getElementById('cep').value.replace(/\D/g, '');
     
     if (cep.length !== 8) {
         alert("CEP inválido!");
@@ -127,7 +127,7 @@ async function deleteContact(id) {
 
     try {
         await fetch(`${API_URL}/${id}/`, { method: 'DELETE' });
-        loadContacts(); // Atualiza a lista de contatos
+        loadContacts();
     } catch (error) {
         alert('Erro ao deletar contato.');
     }
