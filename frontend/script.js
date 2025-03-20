@@ -134,7 +134,7 @@ async function deleteContact(id) {
 }
 
 document.getElementById("contact-form").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evita o recarregamento da página
+    event.preventDefault();
 
     const id = document.getElementById("contact-id").value;
     const nome = document.getElementById("nome").value;
