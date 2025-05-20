@@ -19,7 +19,7 @@ git clone https://github.com/natanLeao/agenda-telefonica.git
 
 ```bash
  
-cd agenda-telefonic
+cd agenda-telefonica
  
 ```
 
