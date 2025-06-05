@@ -111,8 +111,8 @@ docker ps
 
 ---
 
-## ✍️ Autor
+## Autor
 
-Projeto desenvolvido por **Natanael Leão**, para fins de estudo no curso de Desenvolvimento de Sistemas. 💻📚
+Projeto desenvolvido por **Natanael Leão**.
 
 ---
