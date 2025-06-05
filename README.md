@@ -36,8 +36,8 @@ Sistema de uma **Agenda Telefônica** desenvolvido com:
 1️⃣ Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/natanLeao/agenda-telefonica.git
+cd agenda-telefonica
 ```
 
 2️⃣ Rode o projeto:
@@ -113,13 +113,6 @@ docker ps
 
 ## ✍️ Autor
 
-Projeto desenvolvido por **Natanael**, para fins de estudo no curso de Desenvolvimento de Sistemas. 💻📚
+Projeto desenvolvido por **Natanael Leão**, para fins de estudo no curso de Desenvolvimento de Sistemas. 💻📚
 
 ---
-
-## 🚀 Melhorias futuras
-
-- 🔒 Autenticação de usuários (login/senha)  
-- 🌐 Deploy na nuvem (Render, Railway, AWS...)  
-- 🔥 Migração do frontend para React ou Vue  
-- 🧠 Documentação da API com Swagger
