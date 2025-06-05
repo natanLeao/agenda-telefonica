@@ -1,65 +1,125 @@
-# 🛠️ Como Rodar Este Projeto
+# 📞 Agenda Telefônica
 
-Este guia fornece os passos necessários para clonar e executar este projeto localmente. Você vai transferir o código-fonte do GitHub para o seu computador, instalar as dependências e executar a aplicação.
+Sistema de uma **Agenda Telefônica** desenvolvido com:
+
+- 🚀 **Backend:** Node.js + Express + MySQL  
+- 🎨 **Frontend:** HTML, CSS, JavaScript (servido por NGINX)  
+- 🗄️ **Banco de Dados:** MySQL  
+- 🐳 **Orquestração:** Docker + Docker Compose  
 
 ---
 
-## 📥 1. Clone o Repositório
+## 🗂️ Estrutura do Projeto
 
-Abra o terminal e execute o seguinte comando para clonar o projeto:
-
-```bash
- 
-git clone https://github.com/natanLeao/agenda-telefonica.git
- 
+```
+.
+├── backend/          → API Node.js + Express
+├── database/         → Banco MySQL com script de criação
+├── frontend/         → Interface Web + NGINX
+├── docker-compose.yaml → Gerencia os containers
+└── README.md
 ```
 
+---
 
-## 📂 2. Acesse a Pasta do Projeto
+## 🚀 Como rodar o projeto
+
+### 🔧 Pré-requisitos
+
+- ✔️ [Docker](https://www.docker.com/) instalado  
+- ✔️ [Docker Compose](https://docs.docker.com/compose/) instalado  
+
+---
+
+### ▶️ Passo a passo:
+
+1️⃣ Clone o repositório:
 
 ```bash
- 
-cd agenda-telefonica
- 
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
 ```
 
+2️⃣ Rode o projeto:
 
-## 📦 3. Instale as Dependências
-
-Node.js:
 ```bash
- 
-npm install
- 
+docker-compose up --build
 ```
-ou
+
+3️⃣ Acesse no navegador:
+
+- 🔗 **Frontend:** [http://localhost:8080](http://localhost:8080)  
+- 🔗 **Backend API:** [http://localhost:3000/api/contatos](http://localhost:3000/api/contatos)  
+- 🔗 **MySQL:** Porta 3306
+
+---
+
+## 🔗 API - Endpoints
+
+| Método | Rota                    | Descrição                    |
+|--------|--------------------------|------------------------------|
+| GET    | `/api/contatos`          | Listar todos os contatos     |
+| GET    | `/api/contatos/:id`      | Buscar contato por ID        |
+| POST   | `/api/contatos`          | Criar um novo contato        |
+| PUT    | `/api/contatos/:id`      | Atualizar um contato         |
+| DELETE | `/api/contatos/:id`      | Deletar um contato           |
+
+### 🔸 Exemplo de JSON para POST e PUT:
+
+```json
+{
+  "nome": "João Silva",
+  "telefone": "31999999999",
+  "cep": "30140071",
+  "endereco": "Rua A",
+  "bairro": "Centro",
+  "cidade": "Belo Horizonte",
+  "estado": "MG"
+}
+```
+
+---
+
+## 🗄️ Banco de Dados
+
+- Banco: `agenda`  
+- Tabela: `contatos`  
+
+O banco é criado automaticamente via o script `init.sql` na pasta `/database`.
+
+---
+
+## 🐳 Comandos úteis
+
+- Subir containers:
+
 ```bash
- 
-yarn install
- 
+docker-compose up --build
 ```
 
+- Derrubar containers:
 
-## 🚀 4. Execute o Projeto
-
-Node.js:
 ```bash
- 
-npm start
- 
+docker-compose down
 ```
-ou
+
+- Ver containers rodando:
+
 ```bash
- 
-yarn start
- 
+docker ps
 ```
 
-## 💡 Dica: Utilize um IDE
-Para facilitar o desenvolvimento, edição e execução do código, recomendamos o uso de uma IDE como:
+---
 
-* Visual Studio Code
+## ✍️ Autor
 
-* Eclipse
+Projeto desenvolvido por **Natanael**, para fins de estudo no curso de Desenvolvimento de Sistemas. 💻📚
 
-Elas oferecem recursos como debug, terminal integrado e integração com Git.
+---
+
+## 🚀 Melhorias futuras
+
+- 🔒 Autenticação de usuários (login/senha)  
+- 🌐 Deploy na nuvem (Render, Railway, AWS...)  
+- 🔥 Migração do frontend para React ou Vue  
+- 🧠 Documentação da API com Swagger
