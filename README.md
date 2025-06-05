@@ -111,8 +111,6 @@ docker ps
 
 ---
 
-## Autor
-
 Projeto desenvolvido por **Natanael Leão**.
 
 ---
