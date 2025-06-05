@@ -1,52 +1,38 @@
+
 version: '3.8'
 
 services:
-  db:
+  db_agenda:
     build: ./database
-    container_name: mysql_agenda
-    restart: always
+    container_name: db_agenda
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: agenda
-    ports:
-      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-    networks:
-      - minha_rede
 
-  backend:
+  backend_agenda:
     build: ./backend
     container_name: backend_agenda
-    restart: always
-    depends_on:
-      - db
-    environment:
-      DB_HOST: db
-      DB_USER: root
-      DB_PASSWORD: root
-      DB_NAME: agenda
     ports:
       - "3000:3000"
-    networks:
-      - minha_rede
+    environment:
+      - DB_HOST=db_agenda
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_NAME=agenda
+    depends_on:
+      - db_agenda
 
-  frontend:
+  frontend_agenda:
     build: ./frontend
     container_name: frontend_agenda
-    restart: always
-    depends_on:
-      - backend
     ports:
       - "8080:80"
-    volumes:
-      - ./frontend:/usr/share/nginx/html  
-    networks:
-      - minha_rede
+    depends_on:
+      - backend_agenda
 
 volumes:
-  db_data: 
-
-networks:
-  minha_rede:
-    driver: bridge
+  db_data:

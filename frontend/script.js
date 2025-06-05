@@ -1,4 +1,4 @@
-const API_URL = "http://backend_agenda:3000/contatos";
+const API_URL = "http://localhost:3000/api/contatos";
 
 // Carrega contatos ao iniciar a página
 document.addEventListener('DOMContentLoaded', loadContacts);

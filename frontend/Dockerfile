@@ -1,17 +1,14 @@
-# Usa a imagem oficial do Nginx
-FROM nginx:latest
+# Usar imagem oficial do NGINX
+FROM nginx:alpine
 
-# Remove a configuração padrão do Nginx
-RUN rm /etc/nginx/conf.d/default.conf
+# Copiar arquivo de configuração do NGINX
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 
-# Copia a configuração personalizada para o Nginx
-COPY nginx.conf /etc/nginx/conf.d/
-
-# Copia os arquivos do frontend para a pasta padrão do Nginx
+# Copiar os arquivos estáticos (HTML, CSS, JS) para a pasta pública do NGINX
 COPY . /usr/share/nginx/html
 
-# Expõe a porta padrão do Nginx
+# Expor a porta padrão do NGINX
 EXPOSE 80
 
-# Comando padrão para rodar o Nginx
+# Comando padrão do container
 CMD ["nginx", "-g", "daemon off;"]

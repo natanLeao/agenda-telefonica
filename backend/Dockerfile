@@ -1,20 +1,18 @@
-# Usando Node.js como base
+# Usar imagem do Node
 FROM node:18
 
-# Criar diretorio da aplicacao
+# Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar arquivos do projeto
-COPY package.json package-lock.json ./
-
-# Instalar dependencias
-RUN npm install
-
-# Copiar o restante dos arquivos
+# Copiar os arquivos do backend
+COPY package*.json ./
 COPY . .
 
-# Expor a porta da API
+# Instalar dependências
+RUN npm install
+
+# Expor porta
 EXPOSE 3000
 
-# Comando para iniciar o servidor
+# Comando para iniciar a API
 CMD ["npm", "start"]
