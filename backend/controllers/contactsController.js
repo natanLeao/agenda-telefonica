@@ -10,7 +10,6 @@ exports.getContacts = async (req, res) => {
     }
 };
 
-// Buscar contato por ID
 exports.getContactById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -25,13 +24,13 @@ exports.getContactById = async (req, res) => {
 };
 
 exports.addContact = async (req, res) => {
-    const { nome, telefone, cep, endereco, bairro, cidade, estado } = req.body;
+    const { nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado } = req.body;
     try {
         const [result] = await db.query(
-            'INSERT INTO contatos (nome, telefone, cep, endereco, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [nome, telefone, cep, endereco, bairro, cidade, estado]
+            'INSERT INTO contatos (nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado]
         );
-        res.status(201).json({ id: result.insertId, nome, telefone, cep, endereco, bairro, cidade, estado });
+        res.status(201).json({ id: result.insertId, nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado });
     } catch (error) {
         res.status(500).json({ error: 'Erro ao adicionar contato', details: error });
     }
@@ -39,11 +38,11 @@ exports.addContact = async (req, res) => {
 
 exports.updateContact = async (req, res) => {
     const { id } = req.params;
-    const { nome, telefone, cep, endereco, bairro, cidade, estado } = req.body;
+    const { nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado } = req.body;
     try {
         await db.query(
-            'UPDATE contatos SET nome = ?, telefone = ?, cep = ?, endereco = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?',
-            [nome, telefone, cep, endereco, bairro, cidade, estado, id]
+            'UPDATE contatos SET nome = ?, sobrenome = ?, telefone = ?, cep = ?, endereco = ?, complemento = ?, bairro = ?, cidade = ?, estado = ? WHERE id = ?',
+            [nome, sobrenome, telefone, cep, endereco, complemento, bairro, cidade, estado, id]
         );
         res.json({ message: 'Contato atualizado com sucesso' });
     } catch (error) {
